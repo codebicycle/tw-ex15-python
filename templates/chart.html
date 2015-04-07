@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>tw-ex15</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <style>
+  body {
+      color: #333;
+  }
+  svg { 
+    display: block;
+    margin-bottom: 3px;
+  }
+  rect {  
+    fill: blue;
+    fill-opacity: 0.1;  
+  }
+  text {
+    font-size: 3em;
+    fill: steelblue;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  #info>li {
+    display: inline-table;
+    margin-right: 2.5em;
+  }
+  span.vote {
+    font-size: 3em;
+    margin-right: .1em;
+    color: steelblue;
+  }
+</style>
+
+</head>
+<body>
+{{votes}}
+<section>
+  {% for vote in view.sorted %}
+  <svg width="{{view.votes[vote].nr * view.scale}}" height="50">
+    <text x="5" y="45">{{vote}}</text>
+    <rect width="{{view.votes[vote].nr * 30}}" height="50" />
+  </svg>
+ {% endfor %}
+</section>
+
+<ul id="info">
+  {% for vote in view.sorted %}
+  <li>
+    <span class="vote">{{vote}}</span><span>({{view.votes[vote].nr}} votes)</span>
+    <ul>
+      {% for last_voter in view.votes[vote].last_voters %}
+      <li>{{last_voter}}</li>
+      {% endfor %}
+    </ul>
+  </li>
+  {% endfor %}
+</ul>
+</body>
+</html>
